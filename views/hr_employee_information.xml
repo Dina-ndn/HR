@@ -1,0 +1,168 @@
+<odoo>
+    <data>
+
+        <!-- Kanban view of HR Employee Model -->
+        <record id="hr_employee_information_kanban" model="ir.ui.view">
+            <field name="name">kanban.hr.employee.information</field>
+            <field name="model">hr.employee.information</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="id"/>
+                    <!-- <field name="employee_image"/> -->
+                    <field name="name"/>
+                    <field name="job_id"/>
+                    <field name="department_id"/>
+                    <field name="staff_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <!-- <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('hr.employee.information', 'employee_image', record.id.raw_value)"/>
+                                </div> -->
+                                <div class="oe_kanban_details">
+                                    <field name="name"/><br/>
+                                    <field name="job_id"/><br/>
+                                    <field name="department_id"/><br/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Tree view of HR Employee Process Model -->
+        <record id="hr_employee_information_tree" model="ir.ui.view">
+            <field name="name">tree.hr.employee.information</field>
+            <field name="model">hr.employee.information</field>
+            <field name="arch" type="xml">
+                <tree string="Employee">
+                    <field name="name"/>
+                    <field name="job_id"/> 
+                    <field name="number_of_process"/> 
+                    <!-- <field name="number_of_process_name"/>     -->
+                    <field name="show_process_name"/>    
+                    <field name="department_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form view of HR Employee Process Model -->
+        <record id="hr_employee_proces2s_form_view" model="ir.ui.view">
+            <field name="name">hr.employee.information.form.view</field>
+            <field name="model">hr.employee.information</field>
+            <field name="arch" type="xml">
+                <form string="Employee">
+                    <sheet>
+                        <!-- <field name="employee_image" widget="image" class="oe_avatar"/> -->
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Employee's Name"  required="True"/>
+                            </h1>
+                            <h3>
+                                <field name="job_id" placeholder="Job Position"  required="True"/>
+                            </h3>
+                            <h3>
+                                <field name="staff_id" placeholder="Staff ID"  required="True"/>
+                            </h3>
+                            <h3>
+                                <field name="department_id" placeholder="Department"  required="True"/>
+                            </h3>
+                        </div>
+                        <!-- Notebook -->
+                        <notebook>
+                            <!-- Private Information Tab -->
+                            <page name="personal_information" string="Private Information">
+                                <group>
+                                    <group string="Private Contact">
+                                        <field name="private_email" string="Email"/>
+                                        <field name="phone" string="Phone"/>
+                                        <label for="km_home_work"/>
+                                        <div class="o_row" name="div_km_home_work">
+                                            <field name="km_home_work" groups="hr.group_hr_user"/>
+                                            <span>Km</span>
+                                        </div>
+
+                                    </group>
+                                    <group string="Citizenship">
+                                        <!-- <field name="country_id" options='{"no_open": True, "no_create": True}'/> -->
+                                        <field name="identification_id" groups="hr.group_hr_user"/>
+                                        <field name="passport_id" groups="hr.group_hr_user"/>
+                                        <field name="gender"/>
+                                        <field name="birthday"/>
+                                        <field name="place_of_birth" groups="hr.group_hr_user"/>
+                                        <field name="country_of_birth" groups="hr.group_hr_user"/>
+                                    </group>
+                                    <group string="Marital Status">
+                                        <field name="marital"/>
+                                        <field name="spouse_complete_name" invisible="marital not in ['married', 'cohabitant']"  groups="hr.group_hr_user"/>
+                                        <field name="spouse_birthdate" invisible="marital not in ['married', 'cohabitant']"  groups="hr.group_hr_user"/>
+                                    </group>
+                                    <group string="Dependant">
+                                        <field name="children"/>
+                                    </group>
+                                    <group string="Emergency">
+                                        <field name="emergency_contact"/>
+                                        <field name="emergency_phone" class="o_force_ltr"/>
+                                    </group>
+                                    <group string="Work Permit" name="has_work_permit">
+                                        <field name="visa_no"/>
+                                        <field name="permit_no"/>
+                                        <field name="visa_expire"/>
+                                        <field name="work_permit_expiration_date"/>
+                                        <field name="has_work_permit"/>
+                                    </group>
+                                    <group string="Education">
+                                        <field name="certificate"/>
+                                        <field name="study_field"/>
+                                        <field name="study_school"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <!-- End Private Information Tab -->
+                            <!-- General Information Tab -->
+                            <page string="General Information">
+                                <group>
+                                    
+                                </group>
+                                <group>
+                                    
+                                </group>
+                            </page>
+                            <!-- End General Information Tab -->
+                        </notebook>
+                        <!-- End Notebook -->
+                    </sheet>
+
+                    <!-- Chatter -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                        <field name="activity_ids"/>
+                    </div>
+                    <!-- End Chatter -->
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of HR Employee Process Model -->
+        <record id="action_hr_employee_information" model="ir.actions.act_window">
+            <field name="name">Employee</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee.information</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p>Create your first Employee Information form!</p>
+            </field>
+        </record>
+
+        <!-- <menuitem id="menu_hr_employee_information" name="Employee Information" parent="menu_hr_root" action="action_hr_employee_information"/>  -->
+        <menuitem
+                id="menu_hr_employee_information"
+                name="Employee"
+                action="action_hr_employee_information"
+                parent="menu_hr_employee_payroll"
+                />
+
+    </data>
+</odoo>

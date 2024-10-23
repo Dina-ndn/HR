@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree view of Currculum Vitae Simple Model -->
+    <record id="view_hr_employee_ot_tree" model="ir.ui.view">
+        <field name="name">hr.employee.ot.tree.view</field>
+        <field name="model">hr.employee.ot</field>
+        <field name="arch" type="xml">
+            <tree string="Overtime" edit="1" editable="bottom" sample="1">
+                <field name="employee_id"/>
+                <field name="time_from"/>
+                <field name="time_to"/>
+                <field name="overtime_hours"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action of Purchase Order Delivery Cost Model -->
+    <record id="action_hr_employee_ot" model="ir.actions.act_window">
+        <field name="name">Overtime</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.employee.ot</field>
+        <field name="view_mode">tree</field> 
+        <field name="help" type="html">
+            <p>Create first Overtime for employee!</p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_hr_employee_ot_tree"
+                  action="action_hr_employee_ot"
+                  parent="menu_hr_root"/>
+</odoo>
